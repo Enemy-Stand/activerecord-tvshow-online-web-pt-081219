@@ -1,13 +1,10 @@
-require 'pry'
-
 class Show < ActiveRecord::Base
   def self.highest_rating
-    self.maximum(:rating)
+    Show.maximum(:rating)
   end
   
   def self.most_popular_show
-    # binding.pry
-    self.where("rating = ?", self.highest_rating).first
+    Show.where("rating = ?", self.highest_rating).first
   end
   
   def self.lowest_rating
@@ -15,7 +12,7 @@ class Show < ActiveRecord::Base
   end
   
   def self.least_popular_show
-    
+    Show.where("rating = ?", self.lowest_rating).first
   end
   
   def self.ratings_sum
@@ -23,10 +20,10 @@ class Show < ActiveRecord::Base
   end
   
   def self.popular_shows
-    self.where("rating > ?", 5)
+    Show.where("rating > ?", 5)
   end
   
   def self.shows_by_alphabetical_order
-    self.order(:name)
+    Show.order(:name)
   end
 end
